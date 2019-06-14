@@ -18,17 +18,17 @@ import javax.persistence.EntityListeners
 abstract class Auditable {
 
     @CreatedBy
-    protected var createdBy: String? = null
+    var createdBy: String? = null
 
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
-    protected var createdDate: Date? = null
+    var createdDate: Date? = null
 
     @LastModifiedBy
-    protected var lastModifiedBy: String? = null
+    var lastModifiedBy: String? = null
 
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
-    protected var lastModifiedDate: Date? = null
+    var lastModifiedDate: Date? = null
 
 }

@@ -5,7 +5,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "todos")
-class ToDo {
+class ToDo : Auditable {
 
     @Id
     @GeneratedValue
