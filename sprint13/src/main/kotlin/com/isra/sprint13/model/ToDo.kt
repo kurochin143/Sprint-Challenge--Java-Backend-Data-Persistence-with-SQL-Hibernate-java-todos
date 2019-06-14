@@ -5,7 +5,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "tables")
-class Todo {
+class ToDo {
 
     @Id
     @GeneratedValue
@@ -18,9 +18,9 @@ class Todo {
 
     var completed: Boolean? = null
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userid", nullable = false)
-    @JsonIgnoreProperties("todos")
+    @JsonIgnoreProperties(value = ["todos"])
     var user: User? = null
 
     constructor()

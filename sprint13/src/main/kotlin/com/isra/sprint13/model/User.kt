@@ -27,18 +27,16 @@ class User : Auditable {
     @JsonIgnoreProperties("user")
     var userroles: List<UserRoles> = mutableListOf()
 
-    @OneToMany(mappedBy = "user",
-            cascade = [CascadeType.ALL])
-    @JsonIgnoreProperties("user")
-    var todos: List<Todo> = mutableListOf()
+//    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
+//    @JsonIgnoreProperties(value = ["user"])
+//    var todos: List<ToDo> = mutableListOf()
 
     constructor()
 
-    constructor(username: String?, password: String?, userRoles: List<UserRoles>, todos: List<Todo>) : super() {
+    constructor(username: String?, password: String?, userRoles: List<UserRoles>) : super() {
         this.username = username
         setPasswordEncrypt(password)
         this.userroles = userRoles
-        this.todos = todos
 
         userRoles.forEach {
             it.user = this
