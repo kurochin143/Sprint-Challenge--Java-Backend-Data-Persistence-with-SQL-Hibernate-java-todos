@@ -1,5 +1,6 @@
 package com.isra.sprint13.service;
 
+import com.isra.sprint13.model.ToDo;
 import com.isra.sprint13.model.User;
 import com.isra.sprint13.model.UserRoles;
 import com.isra.sprint13.repository.RoleRepository;
@@ -45,6 +46,15 @@ public class UserServiceImpl implements UserDetailsService, UserService
                 .orElseThrow(() -> new EntityNotFoundException(Long.toString(id)));
     }
 
+    @Override
+    public User findCurrent() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = userrepos.findByUsername(authentication.getName());
+        if (currentUser == null) throw new EntityNotFoundException("user cannot be found");
+
+        return currentUser;
+    }
+
     public List<User> findAll()
     {
         List<User> list = new ArrayList<>();
@@ -71,7 +81,7 @@ public class UserServiceImpl implements UserDetailsService, UserService
     {
         User newUser = new User();
         newUser.setUsername(user.getUsername());
-        newUser.setPassword(user.getPassword());
+        newUser.setPasswordEncrypt(user.getPassword());
 
         ArrayList<UserRoles> newRoles = new ArrayList<>();
         for (UserRoles ur : user.getUserroles())
@@ -115,6 +125,12 @@ public class UserServiceImpl implements UserDetailsService, UserService
                     for (UserRoles ur : user.getUserroles())
                     {
                         rolerepos.insertUserRoles(id, ur.getRole().getRoleid());
+                    }
+                }
+
+                if (user.getTodos().size() > 0) {
+                    for (ToDo toDo : user.getTodos()) {
+                        currentUser.getTodos().add(toDo);
                     }
                 }
 

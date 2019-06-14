@@ -27,9 +27,9 @@ class User : Auditable {
     @JsonIgnoreProperties("user")
     var userroles: List<UserRoles> = mutableListOf()
 
-//    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
-//    @JsonIgnoreProperties(value = ["user"])
-//    var todos: List<ToDo> = mutableListOf()
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
+    @JsonIgnoreProperties(value = ["user"])
+    var todos: List<ToDo> = mutableListOf()
 
     constructor()
 

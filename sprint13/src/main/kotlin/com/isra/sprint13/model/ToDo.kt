@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import javax.persistence.*
 
 @Entity
-@Table(name = "tables")
+@Table(name = "todos")
 class ToDo {
 
     @Id

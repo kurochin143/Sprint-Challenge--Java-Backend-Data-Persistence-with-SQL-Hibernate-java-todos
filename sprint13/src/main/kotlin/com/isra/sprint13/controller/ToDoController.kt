@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 
 @Controller
@@ -14,9 +15,17 @@ class ToDoController(private val todoService: ToDoService) {
 
     @PostMapping("/users/todo/{userid}")
     fun addTodo(@RequestBody toDo: ToDo, @PathVariable("userid") userid: Long): ResponseEntity<*> {
-        todoService.save(toDo, userid)
 
-        return ResponseEntity("""{"message": "added"}""", HttpStatus.CREATED)
+
+        return ResponseEntity(todoService.save(toDo, userid), HttpStatus.CREATED)
+    }
+
+    @PutMapping("/todos/todoid/{todoid}")
+    fun updateTodo(@RequestBody toDo: ToDo, @PathVariable("todoid") id: Long): ResponseEntity<*> {
+
+        todoService.update(toDo, id)
+
+        return ResponseEntity("""{"message":"updated"}""", HttpStatus.OK)
     }
 
 }
